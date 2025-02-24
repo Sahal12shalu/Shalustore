@@ -1,0 +1,11 @@
+module.exports={
+    Logindetails:'signupdetails',
+    Adminlogin:'adminsignin',
+    Hoteldetails:'hoteldetail',
+    Productdetail:'productdetail',
+    Reviewdetails:'reviewdetails',
+    Cartproduct:'cartproducts',
+    Addressdetails:'addressdetails',
+    Confirmproducts:'confirmproducts',
+    Conatctus:'contactus'
+}

@@ -1,0 +1,429 @@
+
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <link rel="stylesheet" href="/stylesheets/styleproductpage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        
+        /* Top Section Styling */
+        .restaurant-header {
+            height: 100%;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .restaurant-header h1 {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .restaurant-details {
+            align-content: center;
+            justify-items: center;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+        .menu-card{
+            width: 100%;
+            height: 380px;
+        }
+        .menu-card img {
+           object-fit: fill;
+            height: 220px;
+            width: 100%;
+            border-radius: 10px;
+        }
+        .menu-card {
+            transition: transform 0.3s;
+        }
+        .menu-card:hover {
+            transform: scale(1.05);
+        }
+        
+
+        
+/* Card Styling */
+.card11 {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Section: Icon */
+.veg-nonveg-icon {
+    width: 20px;
+    height: 20px;
+    background-color: red; /* Red circle (Non-Veg indicator) */
+    border-radius: 50%;
+    border: 2px solid #e0e0e0;
+    margin-right: 15px;
+}
+
+/* Content Section */
+.card-content11 {
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.description {
+    font-size: 14px;
+    color: #666;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-top: 10px;
+}
+
+/* Right Section: Add Button */
+.add-button {
+    width: 60px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #5c5b5b;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-button:hover {
+    background-color: #e0e0e0;
+}
+
+    .star-rating {
+        direction: rtl;
+        display: inline-block;
+        cursor: pointer;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .star-rating input {
+        display: none;
+    }
+
+    .star-rating label {
+        color: #6c6969;
+        font-size: 24px;
+        padding: 0 2px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+    }
+
+    .star-rating label:hover,
+    .star-rating label:hover~label,
+    .star-rating input:checked~label {
+        color: #ffc107;
+    }.rating-card{
+        text-align: center;
+    }
+
+    /* Popup Styling */
+.popup-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background-color: rgba(104, 103, 103, 0.66);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    width: 60%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Style for buttons */
+.add-to-cart-btn, .confirm-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.confirm-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+
+    </style>
+</head>
+<body style="background: linear-gradient(135deg, #eff3fdcb, rgba(185, 185, 185, 0.625) 100%);">
+    
+<!-- Restaurant Header (First Image Content) -->
+{{#each product}}
+<div style="height: 300px; padding: 10px;" class="container d-flex">
+<div class="restaurant-header col-md-12 col-12" style="background: url(/images/hotelpicture/{{this._id}}.jpg); background-size: cover; background-position: center;";>
+  <div class="restaurant-details col-md-4 col-9" style="background-color: #ccc;">
+        <h3><strong>{{this.hotelname}}</strong></h3>
+        <p>{{this.description}}</p>
+        <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><strong>Delivery Time:</strong> 59 Mins | <strong>Distance:</strong> 1.5 Km</p>
+    </div>
+    </div>
+    </div>
+{{/each}}
+
+
+<div class="container mt-3" style="background-color: rgba(214, 254, 255, 0.748) 100%); padding: 50px;">
+   <div >
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="Search...">
+        <i class="fas fa-search search-icon"></i>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Menu Section (Second Image Content) -->
+<div class="mt-4">
+    <h2 style="font-family: serif;" class="text-center mb-4"><strong>Top Selling Items</strong></h2>
+    <div class="row" style="justify-content: center;">
+        <!-- Card 1 -->
+        {{#each products}}
+        <div class="col-md-3 col-8">
+            <div class="card menu-card">
+                <div class="mb-3" style="height: 200px;">
+                <img src="/images/productimage/{{this._id}}.jpg" class="card-img-top" alt="Alfaham Combo">
+                </div>
+                <div class="card-body">
+                    <div class="divofnameandicon">
+                    <div>
+                <h5 id="hotelname" class="card-title " style="color: rgb(18, 17, 17);"><strong>{{this.productname}}</strong></h5></div>
+                {{#if (eq this.vegornon "veg")}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/veg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{else}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/nonveg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{/if}}
+                </div>
+                <div style="justify-items: start;">
+                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif;">$ {{this.prize}}</p>
+                    </div>
+                    <button class="btn btn-secondary w-100 mt-2" onclick="openPopup('{{this.hotelname}}','{{this.prize}}','{{this._id}}','{{this.hotid}}')">Add</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+
+<!-- Offers & Combos Section -->
+<p class="conatiner mt-4">Section name</p>
+<div class="container mt-2">
+    <div class="row" style="justify-content: center;">
+        <!-- Offer 1 -->
+        <div class="col-md-8 col-12">
+            {{#each othpro}}
+            <div class="card11 mt-2" style="background: linear-gradient(135deg, rgba(173, 173, 173, 0.685) 0%, rgba(181, 181, 181, 0.6) 100%);">
+        <div class="card-left">
+           {{#if (eq this.vegornon "veg")}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/veg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{else}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/nonveg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{/if}}
+        </div>
+        <div class="card-content11" style="padding-left: 20px;">
+            <h2 class="title pt-2">{{this.productname}}</h2>
+            <p class="price" style="font-family: 'Times New Roman', Times, serif;">$ {{this.prize}}</p>
+        </div>
+        <div class="card-right">
+            <button class="add-button" onclick="openPopup('{{this.hotelname}}',{{this.prize}},'{{this._id}}','{{this.hotid}}')">Add</button>       
+        </div>
+    </div>
+    {{/each}}
+        </div>
+    </div>
+</div>
+
+
+<div class="container col-12 mt-5" style="align-items: center; margin-bottom: 50px;">
+{{#each product}}
+<form id="reviewForm" action="/reviewsubmit/{{this.hotelname}}" method="POST">
+{{/each}}
+<div class="rating-card p-4">
+        <div class="star-rating animated-stars">
+             <h2>Reviw Hotel</h2>
+            <input type="radio" id="star5" name="rating" value="5.0">
+            <label for="star5" class="bi bi-star-fill"></label>
+            <input type="radio" id="star4" name="rating" value="4.0">
+            <label for="star4" class="bi bi-star-fill"></label>
+            <input type="radio" id="star3" name="rating" value="3.0">
+            <label for="star3" class="bi bi-star-fill"></label>
+            <input type="radio" id="star2" name="rating" value="2.0">
+            <label for="star2" class="bi bi-star-fill"></label>
+            <input type="radio" id="star1" name="rating" value="1.0">
+            <label for="star1" class="bi bi-star-fill"></label>
+        </div>
+    </div>
+    <div class="text-center">
+    <label class="form-label">About</label>
+    </div>
+    <div class="text-center d-flex justify-content-center">
+    <div class="mb-3 col-md-8 col-12">
+                <textarea class="form-control" name="reviewText" rows="5" required></textarea>
+            </div>
+    </div>
+    <div class="d-flex justify-content-center text-center">
+  <button type="submit" style="width: 150px; height: 40px;" class="btn btn-primary">submit</button>
+  </div>
+</form>
+</div>
+
+<!-- Popup Modal -->
+<div id="popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2><strong>Confirm Your Order</strong></h2>
+            <div>
+            <p>Hotel : <span id="popup-hotelname"></span></p>
+            <p>Prize :$ <span id="popup-prize"></span></p>
+            <p id="popup-proId" hidden></p>
+            <p id="popup-hotId" hidden></p>
+            </div>
+            <button class="confirm-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    
+    <div class="bottom-nav fixed-bottom">
+        <a href="/homepage" class="btn nav-item ">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="/orderspage" class="btn nav-item">
+            <i class="fas fa-book"></i>
+        </a>
+        {{#if total}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{total}}</span> </a>
+        {{else}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">0</span> </a>
+        {{/if}}
+        <a href="/profile" class="btn nav-item">
+            <i class="far fa-sun"></i>
+        </a>
+    </div>
+         
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+    <script>
+    document.querySelectorAll('.star-rating:not(.readonly) label').forEach(star => {
+        star.addEventListener('click', function() {
+            this.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                this.style.transform = 'scale(1)';
+            }, 200);
+        });
+    });
+</script>
+
+<script>
+ $(document).ready(function() {
+    $("#reviewForm").on("submit", function(event) {
+        event.preventDefault(); 
+
+        let formData = $(this).serialize();
+        $.ajax({
+            url: $(this).attr("action"), 
+            method: $(this).attr("method"), 
+            data: formData,
+            success: function(res) {
+               location.reload(true);
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
+    });
+});
+  
+</script>
+
+<script>
+    function openPopup(hotelname, prize, proid, hotelId) {
+
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("popup-hotelname").innerHTML = hotelname;
+    document.getElementById("popup-prize").innerHTML = prize;
+    document.getElementById("popup-proId").innerHTML = proid;
+    document.getElementById("popup-hotId").innerHTML = hotelId;
+
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+function addToCart() {
+    let productId = document.getElementById("popup-proId").textContent;
+    let hotelId = document.getElementById("popup-hotId").textContent;
+    let prize = document.getElementById("popup-prize").textContent;
+   $.ajax({
+    url:'/add-to-cart',
+    method:'POST',
+    data:{
+        proId:productId,
+        hotelId:hotelId,
+        prize:prize
+    },
+    success:function(response){
+        if(response.status){
+            location.reload(true)
+        }
+    }
+   })
+  
+    
+}
+</script>

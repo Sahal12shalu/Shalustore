@@ -1,0 +1,153 @@
+<style>
+    .popup-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 40%;
+    background-color: rgba(104, 103, 103, 0.66);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+</style>
+
+<body class="bodyadditem">
+    <div class="container mt-4 col-md-6" style="padding-left: 60px;">
+         <div class="d-flex row align-items-center">
+        <h2 class="text-center text-success col-7"><strong>Add Products</strong></h2>
+        <a onclick="openPopup()" type="submit" class="btn col-5 btn btn-success" style="width: 150px; height: 40px;">Edit Products</a>
+        </div><form action="/admin/productdetails" method="post" enctype="multipart/form-data" id="productForm" class="pt-3">
+        <div class="mb-3  col-10">
+                <label for="productPrice" class="form-label">Select Hotel</label>
+                <select name="hotel">
+                    {{#each product}}
+                    <option value="{{this._id}}|{{this.hotelname}}">{{this.hotelname}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="mb-3 col-10">
+                <label for="productName" class="form-label">Product Name</label>
+                <input type="text" class="form-control" name="productname" id="productName" required>
+            </div>
+            <div class="mb-3  col-10">
+                <label for="productDescription" class="form-label">Description</label>
+                <textarea class="form-control" name="description" id="productDescription" rows="3"></textarea>
+            </div>
+            <div class="mb-3  col-10">
+                <label  class="form-label">Category</label>
+                <select name="category" required>
+                    <option value="topselling">Top selling</option>
+                    <option value="others">others</option>
+                </select>
+            </div>
+            <div class="mb-3  col-10">
+                <label  class="form-label">Favourites</label>
+                <select name="favourites">
+                    <option></option>
+                    <option value="milkshake">Milkshake</option>
+                     <option value="alfahm">Alfahm</option>
+                      <option value="biriyani">Biriyani</option>
+                       <option value="burger">burger</option>
+                        <option value="shawarma">shawarma</option>
+                         <option value="shawai">shawai</option>
+                          <option value="masaladosa">masaladosa</option>
+                </select>
+            </div>
+            <div class="mb-3  col-10">
+                <label for="productPrice" class="form-label">Veg or Non-veg</label>
+                <select name="vegornon" required>
+                    <option value="veg">vegeterian</option>
+                    <option value="non-veg">non vegeterian</option>
+                </select>
+            </div>
+            <div class="mb-3 col-10">
+                <label for="productName" class="form-label">Prize</label>
+                <input type="text" class="form-control" name="prize" id="productName">
+            </div>
+
+            <div class="mb-3 mt-2 col-10">
+                <label for="productImage" class="form-label">Upload Image</label>
+                <input type="file" name="image" class="form-control" id="productImage">
+                <img id="imagePreview" class="mt-3" src="#" alt="Image Preview" style="display:none; width: 100px; height: 100px; object-fit: cover;">
+            </div>
+            <button type="submit" class="btn btn-primary">Add Product</button>
+        </form>
+    </div>
+
+    <div id="popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2 style="font-family: Georgia, 'Times New Roman', Times, serif; font-weight: 600;">Please Select Hotel</h2>
+            <form action="/admin/hotelselectionpopup" method="post">
+            <div>
+            <select name="hotel">
+            {{#each product}}
+            <option value="{{this._id}}">{{this.hotelname}}</option>
+            {{/each}}
+            </select>
+            </div>
+            <button class="confirm-btn mt-2" onclick="submit()">Submit</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+
+    <script>
+        document.getElementById("productImage").addEventListener("change", function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const imagePreview = document.getElementById("imagePreview");
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = "block";
+        };
+        reader.readAsDataURL(file);
+    }
+});
+    </script>
+
+    <script>
+    function openPopup(hotelname) {
+        console.log(hotelname)
+    document.getElementById("popup").style.display = "flex";
+
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+function submit() {
+   
+   $.ajax({
+    
+   })
+  
+    
+}
+</script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   

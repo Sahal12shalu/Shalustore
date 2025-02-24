@@ -1,0 +1,62 @@
+<div class="pt-3" style="height: 100%; justify-items: center;">
+{{#each products}}
+<form class="container col-md-6 col-11 row" action="/admin/edited-hotelproduct/{{this._id}}" method="post" enctype="multipart/form-data" 
+style="background: linear-gradient(135deg, rgba(172, 172, 172, 0.758) 0%, rgba(255, 255, 255, 0.6) 100%); " > 
+<div class="d-flex">
+    <div class="col-md-6 col-7">
+        <h3 style="font-family: 'Times New Roman', Times, serif;"><strong><u>EDIT PRODUCT</u></strong></h3>
+    </div>
+    <div class="col-md-4 col-3" >
+        <button type="submit" class="btn btn-success col-12" style="margin-bottom: 10px;" >Submit</button>
+    </div>
+</div>
+<div class="col-md-10 col-12">
+        <label>Hotel Name</label>
+    <input type="text" name="hotelname" value="{{this.hotelname}}" class="form-control" id="name">
+</div>
+<div class="col-md-10 col-12">
+    <br><label>Description</label>
+    <input type="text" name="description" value="{{this.description}}" class="form-control" id="type" >
+</div>
+   <div class="col-md-10 col-12">
+        <br><label class="form-label">Veg or Non-veg</label>
+        <select name="vegornon" required>
+        {{#if (eq this.vegornon "veg")}}
+        <option value="veg">{{this.vegornon}}</option>
+        <option value="non-veg">non veg</option>
+        {{else}}
+        <option value="non-veg">{{this.vegornon}}</option>
+        <option value="veg">veg</option>
+        {{/if}}
+        </select>
+    </div>
+    <br><div class="col-md-10 col-12">
+             <br><label class="form-label">Category</label>
+                <select name="category">
+                    <option value="{{this.category}}">{{this.category}}</option>
+                    <option value="resturant">Resturant</option>
+                    <option value="cafe">Cafe</option>
+                    <option value="bakes">Bakes</option>
+                    <option value="veg-hotel">Veg hotel</option>
+                    <option value="bakery">Bakery</option>
+                    <option value="pizza">Pizza</option>
+                </select>
+            </div>
+
+    <br><div class="col-md-10 col-12" style="padding-bottom: 40px;">
+       <br> <img src="/images/hotelpicture/{{this._id}}.jpg" alt="" style="width: 100px; height: 100px;" id="edited-image">
+    <br><label for="formFile" class="form-label">Add another photo</label>
+    <input class="form-control" name="image" type="file" id="formFile" onchange="viewImage(event)">
+    </div>
+</form>
+{{/each}}
+</div>
+
+<script>
+    function viewImage(event){
+        document.getElementById('edited-image').src=URL.createObjectURL(event.target.files[0])
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    

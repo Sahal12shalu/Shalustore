@@ -1,0 +1,66 @@
+<section>
+    <div class="container mt-3" style="justify-items: center; background: linear-gradient(135deg, rgba(161, 170, 171, 0.63) 0%, rgba(177, 177, 176, 0.6) 100%);">
+<div id="divtable" style="border-radius: 10px;"> 
+  <div class="col-12">
+<br><table class="table" style="border: 10px ; background-color: rgba(238, 238, 238, 0.895);" id="viewproduct">
+  <thead>
+    <tr>
+      <th style="text-align: center;" class="col-3">Product Name</th>
+      <th style="text-align: center;" class="col-2">Prize</th>
+      <th class="col-3">Image</th>
+      <th class="col-2">Edit & Delete</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    {{#each products}}
+    <tr>
+      <td style="text-align: center; padding-top: 40px;">{{this.productname}}</td>
+      <td style="text-align: center; padding-top: 40px;">{{this.prize}}</td>
+      {{#if (eq this.category "others")}}
+      <td style="padding-left: 30px; padding-top: 40px;">No image</td>
+      {{else}}
+      <td><img style="width: 110px; height: 100px;" src="/images/productimage/{{this._id}}.jpg" ></td>
+      {{/if}}
+      <td><a href="/admin/editproductdetailpage/{{this._id}}" class="btn btn-primary mt-4">edit</a>
+          <a onclick="deleteproduct('{{this._id}}')" class="btn btn-danger mt-4">delete</a>
+          </td>
+    </tr>
+    {{/each}}
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+   
+   <script>
+    function deleteproduct(proId){
+        $.ajax({
+            url:'/admin/deleteproductdetail',
+            method:'POST',
+            data:{
+                proId:proId
+            },
+            success:function(response){
+            if(response.status){
+                alert('are you sure delete product')
+            location.reload(true)
+            }
+          }
+        })
+    }
+   </script>
+
+   <script>
+ new DataTable('#viewproduct', {
+    layout: {
+        topStart: 'pageLength',
+        topEnd: 'search',
+        bottomStart: 'info',
+        bottomEnd: 'paging'
+    }
+});
+</script>

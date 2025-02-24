@@ -1,0 +1,235 @@
+
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/styleproductpage.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        
+/* Card Styling */
+.card11 {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 10px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Content Section */
+.card-content11 {
+    flex-grow: 1;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0;
+}
+
+.description {
+    font-size: 14px;
+    color: #666;
+    margin: 5px 0;
+}
+
+.price {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+    margin-top: 10px;
+}
+
+/* Right Section: Add Button */
+.add-button {
+    width: 60px;
+    height: 30px;
+    background-color: white;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.add-button:hover {
+    background-color: #e0e0e0;
+}.menu-card{
+            width: auto;
+            height: 250px;
+        }
+        .menu-card {
+            transition: transform 0.3s;
+        }
+        .menu-card:hover {
+            transform: scale(1.05);
+        }
+        
+
+        .popup-container {
+    display: none;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 50%;
+    background-color: rgba(104, 103, 103, 0.66);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    width: 50%;
+    padding: 20px;
+    text-align: center;
+    position: relative;
+    border-radius: 10px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Style for buttons */
+.add-to-cart-btn, .confirm-btn {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.confirm-btn {
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+    </style>
+</head>
+<body style="background: linear-gradient(135deg, #ededed, rgb(238, 238, 238) 100%); height: 750px;">
+  
+    <div class="container text-center mt-2">
+        <h2><strong>Best {{product.favourites}} In the town</strong></h2>
+    </div>
+<div class="container mt-2 px-5" style="margin-bottom: 50px; background: linear-gradient(135deg, rgba(175, 175, 175, 0.9) 0%, rgba(173, 173, 173, 0.773) 100%);">
+    <div class="row" >
+        <!-- Card 1 -->
+        {{#each products}}
+        <div class="col-md-4 col-12">
+            <div class="card menu-card">
+                <div class="card-body">
+                    <div class="divofnameandicon">
+                    <div>
+                <h4 id="hotelname" class="card-title " style="color: rgb(18, 17, 17);"><strong>{{this.productname}}</strong></h4></div>
+                {{#if (eq this.vegornon "veg")}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/veg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{else}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/nonveg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{/if}}
+                </div>
+                <h5></h5>
+                    <p class="card-text"><u><strong>{{this.hotelname}}</strong></u></p>
+                    <p>${{this.prize}}</p>
+                    <button class="btn btn-secondary w-100 mt-3" onclick="openPopup('{{this.hotelname}}','{{this.prize}}','{{this._id}}','{{this.hotid}}',)">Add</button>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+        
+    </div>
+</div>
+
+<div id="popup" class="popup-container">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>Confirm Your Order</h2>
+            <div>
+            <p>Hotel : <span id="popup-hotelname"></span></p>
+            <p>Prize :$ <span id="popup-prize"></span></p>
+            <p id="popup-proId" hidden></p>
+            <p id="popup-hotId" hidden></p>
+            </div>
+            <button class="confirm-btn" onclick="addToCart()">Add to Cart</button>
+        </div>
+    </div>
+
+     <!-- Bottom Navigation Bar -->
+    
+    <div class="bottom-nav fixed-bottom">
+        <a href="/homepage" class="btn nav-item ">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="/orderspage" class="btn nav-item">
+            <i class="fas fa-book"></i>
+        </a>
+        {{#if total}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{total}}</span> </a>
+        {{else}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">0</span> </a>
+        {{/if}}
+        <a href="/profile" class="btn nav-item">
+            <i class="far fa-sun"></i>
+        </a>
+    </div>
+
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    
+</body>
+
+<script>
+    function openPopup(hotelname,prize,proid,hotelId) {
+
+    document.getElementById("popup").style.display = "flex";
+
+    document.getElementById("popup-hotelname").innerHTML = hotelname;
+    document.getElementById("popup-prize").innerHTML = prize;
+    document.getElementById("popup-proId").innerHTML = proid;
+    document.getElementById("popup-hotId").innerHTML = hotelId;
+
+}
+
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+function addToCart() {
+    let productId = document.getElementById("popup-proId").textContent;
+    let hotelId = document.getElementById("popup-hotId").textContent;
+     let prize = document.getElementById("popup-prize").textContent;
+    
+   $.ajax({
+    url:'/add-to-cart',
+    method:'POST',
+    data:{
+        proId:productId,
+        hotelId:hotelId,
+        prize:prize
+    },
+    success:function(response){
+        if(response.status){
+            location.reload(true)
+        }
+    }
+   })
+  
+    
+}
+</script>

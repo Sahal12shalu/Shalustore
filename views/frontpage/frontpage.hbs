@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+</head>
+<body>
+    <style>
+      
+    </style>
+    <!-- Top Categories -->
+     <p style="position: absolute; padding-left: 30px; color: dimgrey;" class=" pt-3"><strong><u>Favourites</u></strong></p>
+    <div id="home" class="scroll-box p-4 pt-5">
+        <div class="scroll-box-content d-flex">
+            <a href="/favorites?key=milkshake" id="milkshakes" style="text-align-last: right;" class="category-box">Milkshake</a>
+            <a href="/favorites?key=alfahm" id="alfaham" style="text-align-last: right;" class="category-box">Al Faham</a>
+            <a href="/favorites?key=biriyani" id="biriyani" style="text-align-last: right;" class="category-box">Biriyani</a>
+            <a href="/favorites?key=burger" id="burger" style="text-align-last: right;" class="category-box">Burger</a>
+            <a href="/favorites?key=shawarma" id="shawarma" style="text-align-last: right;" class="category-box">Shawarma</a>
+              <a href="/favorites?key=shawai" id="shawai" style=" text-align-last: right;" class="category-box">shawai</a>
+           <a href="/favorites?key=masaladosa" id="MasalaDosa" style="text-align-last: right;" class="category-box">MasalaDosa</a>
+        </div>
+    </div>
+
+<div class="serachbardiv">
+  <div class="row justify-content-center">
+    <div class="col-md-11">
+      <div class="search-container">
+        <input type="text" class="form-control search-input" placeholder="    Search...">
+      </div>
+    </div>
+  </div>
+</div>
+
+    <!-- Banner -->
+    <div class="container mt-3">
+        <div class="banner">
+            <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;"><strong>Welcome to Sahal Store</strong></h2>
+            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Your favorite dishes at your fingertips</p>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="container mt-4" id="icon-category">
+        <div class="row text-center" id="icon-category-content">
+          <div onclick="selectcategory('all')" class="col">
+                <p ><strong>Shalu stores</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-all">
+                </a>
+            </div>
+            <div onclick="selectcategory('resturant')" class="col">
+                <p ><strong>Restaurant</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-resturant">
+                </a>
+            </div>
+            <div onclick="selectcategory('cafe')" class="col">
+                <p><strong>Cafe</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-cafe">
+                </a>
+            </div>
+            <div onclick="selectcategory('bakes')" class="col">
+                <p><strong>Bakes</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-Bakes">
+                </a>
+            </div>
+            <div onclick="selectcategory('veg-hotel')" class="col">
+                <p><strong>Veg Hotels</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-veghotel">
+                </a>
+            </div>
+            <div onclick="selectcategory('bakery')" class="col">
+                <p><strong>Bakery</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-Bakery">
+                </a>
+            </div>
+            <div onclick="selectcategory('pizza')" class="col">
+                <p><strong>Pizza</strong></p>
+                <a class="category-icon">
+                    <img class="icon-image-pizza">
+                </a>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Near You Section -->
+    <div id="resturant" class="container mt-4">
+        <h5><strong>Resturants to explore</strong></h5>
+        <div class="row">
+          {{#each products}}
+            <div data-category="{{this.category}}" data-12="all" class="explore-card col-md-6">
+                <a href="/carddetail/{{this._id}}" class="card mb-3"> 
+                <div class="row g-0">
+                <div class="col-5 carddiv">
+                <img src="/images/hotelpicture/{{this._id}}.jpg" class="img-fluid rounded-start">
+                </div>
+                <div class="col-7">
+                <div class="card-content">
+                <div class="divofnameandicon">
+                    <div>
+                <h3 id="hotelname" class="card-title" style="color: rgb(18, 17, 17);"><strong>{{this.hotelname}}</strong></h3></div>
+                {{#if (eq this.vegornon "veg")}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/veg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{else}}
+                <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/nonveg.png" style="height: 30px; width: 30px;">
+                </div>
+                {{/if}}
+                </div>
+                <p class="details mt-2">{{this.description}}</p>
+                <span>{{#if this.avgRating}}
+                <div class="star-rating" style="color: rgb(236, 240, 104); font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" data-rating="{{this.avgRating}}" data-category="{{this.ratingCount}}">
+                </div>
+                 {{else}}
+                  
+                  {{/if}}</span>
+                </div>
+                </div>
+                </div>
+                </a>
+            </div>
+            {{/each}}
+        </div>
+    </div>
+
+    <footer class="footer_area section_padding_130_0">
+      <div class="container">
+        <div class="row">
+          <!-- Single Widget-->
+          <div class="col-12 col-lg-4">
+            <div class="single-footer-widget section_padding_0_130">
+              <!-- Footer Logo-->
+              <div class="footer-logo mb-3"></div>
+              <p>Appland is completely creative, lightweight, clean app landing page.</p>
+              <!-- Footer Social Area-->
+              <div class="footer_social_area"><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Facebook"><i class="fa fa-facebook"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Pinterest"><i class="fa fa-pinterest"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Skype"><i class="fa fa-skype"></i></a><a href="#" data-toggle="tooltip" data-placement="top" title="" data-original-title="Twitter"><i class="fa fa-twitter"></i></a></div>
+            </div>
+          </div>
+          <!-- Single Widget-->
+          <div id="hahaha" class="col-6 col-lg-4">
+            <div class="single-footer-widget section_padding_0_130">
+              <!-- Footer Menu-->
+              <div class="footer_menu">
+                <ul>
+                     <h5 style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" class="widget-title"><strong>About</strong></h5>
+                  <li><a href="/aboutuspage">About Us</a></li>
+                  <li><a href="#">Corporate Sale</a></li>
+                  <li><a href="/terms">Terms &amp; Policy</a></li>
+                  <li><a href="/aboutuspage">Community</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Single Widget-->
+          <div id="hahaha" class="col-6 col-lg-4">
+            <div class="single-footer-widget section_padding_0_130">
+              <!-- Footer Menu-->
+              <div class="footer_menu">
+                <ul>
+                    <h5  style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" class="widget-title"><strong>Contact</strong></h5>
+                  <li><a href="/contact">Call Centre</a></li>
+                  <li><a href="/contact">Email Us</a></li>
+                  <li><a href="/terms">Term &amp; Conditions</a></li>
+                  <li><a href="/terms">Help Center</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="bottom-nav fixed-bottom">
+        <a href="/homepage" class="btn nav-item ">
+            <i class="fas fa-home"></i>
+        </a>
+        <a href="/orderspage" class="btn nav-item">
+            <i class="fas fa-book"></i>
+        </a>
+        {{#if total}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{total}}</span> </a>
+        {{else}}
+        <a href="/cartpage" class="btn nav-item text-dark ">
+            <i class="fas fa-shopping-basket carticon"></i>
+            <span class="cart-count" 
+            style="font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">0</span> </a>
+        {{/if}}
+        <a href="/profile" class="btn nav-item">
+            <i class="far fa-sun"></i>
+        </a>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+<script>
+    document.getElementById('divRating').addEventListener('click', function(event) {
+  if (event.target.tagName.toLowerCase() != 'span') return;
+  
+  if (event.target.classList.contains('rated')) {
+    event.target.classList.remove('rated');
+  } else {
+    Array.prototype.forEach.call(document.getElementsByClassName('rated'), function(el) {
+      el.classList.remove('rated');
+    });
+    event.target.classList.add('rated');
+  }
+});
+</script>
+
+<script>
+  function selectcategory(category) {
+    let cards = document.querySelectorAll('.explore-card'); // Get all cards
+
+    cards.forEach(card => {
+        if (card.getAttribute('data-category') === category) {
+            card.style.display = 'block';  // Show matching category
+        } else {
+            card.style.display = 'none';  // Hide others
+        }
+        if (card.getAttribute('data-12') === category) {
+            card.style.display = 'block';  // Show matching category
+        }
+    });
+}
+</script>
+
+<script>
+ document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.star-rating').forEach(div => {
+    let rating = parseFloat(div.getAttribute('data-rating'));
+    let lenth = parseFloat(div.getAttribute('data-category'));
+    let fullStars = Math.floor(rating);
+    let hasHalfStar = rating % 1 !== 0;
+    
+    let starsHtml = '';
+    starsHtml += ` <span style="color:grey">${rating}   </span>`; // Show numeric rating
+
+    for (let i = 0; i < fullStars; i++) {
+      starsHtml += '<span class="fa fa-star"></span>';
+    }
+    if (hasHalfStar) {
+      starsHtml += '<span class="fa fa-star-half"></span>';
+    }
+    starsHtml += ` <span style="color:grey">(${lenth})</span>`; // Show numeric rating
+    
+    div.innerHTML = starsHtml;
+  });
+});
+</script>

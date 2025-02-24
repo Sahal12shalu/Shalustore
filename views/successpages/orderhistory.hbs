@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    /* General styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #dededed0;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+.firstdiv{
+    justify-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.order-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 90%;
+  overflow: hidden;
+  border: 1px solid #e0e0e0;
+}
+
+/* Header styles */
+.order-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #f1f1f1;
+}
+
+.order-status {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 5px 10px;
+  border-radius: 15px;
+  text-transform: uppercase;
+}
+
+.order-status.completed {
+  color: #fff;
+}
+
+.order-date {
+  font-size: 12px;
+  color: #888;
+}
+
+/* Content styles */
+.order-content {
+  display: flex;
+  padding: 15px;
+}
+
+.order-image {
+  width: 80px;
+  height: 80px;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+.order-details {
+  flex-grow: 1;
+}
+
+.restaurant-name {
+  font-size: 18px;
+  margin: 0;
+}
+
+.booking-code {
+  font-size: 12px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  margin: 10px 0 0 0;
+  font-size: 14px;
+}
+
+/* Footer styles */
+.order-footer {
+  background: #f9f9f9;
+  padding: 15px;
+  font-size: 14px;
+}
+
+.price-breakdown p {
+  margin: 5px 0;
+}
+
+.total-price {
+  font-size: 16px;
+  font-weight: bold;
+}
+.cart-container {
+    background: white;
+    padding: 50px;
+    margin: 100px auto;
+    width: 400px;
+    border-radius: 10px;
+    box-shadow: 0 10px 15px rgba(146, 228, 236, 0.578);
+}
+
+.cart-image {
+    width: 200px;
+    margin-bottom: 20px;
+}
+
+.cart-text {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.highlight {
+    color: gray;
+}
+
+.subtext {
+    color: #888;
+    font-size: 14px;
+}
+
+.menu-button {
+    background-color: #404040;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.menu-button:hover {
+    background-color: #ff5252b7;
+}
+  </style>
+   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+  {{#if status}}
+  {{#each alldetails}}
+  {{#if (eq this.status "pending")}}
+  <body>
+    <div class="col-md-8 mb-3 firstdiv">
+  <div class="order-card mt-5" style="background-color: #88888869;" >
+    <div class="order-header" style="background-color: #c3c3c31f;">
+      <div class="order-status completed" style="background-color: red;">Cancel</div>
+      <div class="order-date"></div>
+    </div>
+    <div class="order-content">
+      <img style="width: 200px; height: 180px;" src="/images/hotelpicture/{{this.hotelId}}.jpg" alt="Food" class="order-image">
+      <div class="order-details">
+        <div class="d-flex justify-content-between">
+        <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" class="restaurant-name"><strong>{{this.hotelname}}</strong></h3>
+        <p class="type"><strong>Type:</strong> Delivery</p>
+        </div>
+        <p class="payment-method mt-1"><strong>Payment Method:</strong> {{this.paymentmethod}}</p>
+
+        {{#each this.product}}
+        <ul class="pt-2 d-flex items">
+          <div class="col-2"><p><strong>{{this.product.quantity}}×{{this.product.totalprize}}</strong></p></div>
+          <div class="col-5"><strong><span style="margin-left: 10px;">{{this.product.productname}}</strong></span></div>
+          <div class="col-3"><strong><li style="margin-left: 20px;">{{this.product.grandtotal}}</strong></li></div>
+        </ul>
+        {{/each}}
+        
+      </div>
+    </div>
+    <div class="order-footer" style="background-color: #c3c3c31f;">
+      <div class="price-breakdown">
+        <p>Item Total: ₹{{this.totalamount}}</p>
+        <p>Delivery Charge: ₹24</p>
+        <hr>
+        <div class="d-flex justify-content-between">
+        <p class="total-price"><strong>Total: ₹{{this.grandttoal}}</strong></p>
+        <a href="/trackpage" class="text-muted" style="font-family: 'Times New Roman', Times, serif;">Track order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </body>
+  {{else}}
+  <body>
+    <div class="col-md-8 mb-3 firstdiv">
+  <div class="order-card mt-5" >
+    <div class="order-header">
+      <div class="order-status completed" style="background-color: rgb(34, 255, 89);">Completed</div>
+      <div class="order-date"></div>
+    </div>
+    <div class="order-content">
+      <img style="width: 160px; height: 140px;" src="/images/hotelpicture/{{this.hotelId}}.jpg" alt="Food" class="order-image">
+      <div class="order-details">
+        <div class="d-flex justify-content-between">
+        <h2 style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif" class="restaurant-name"><strong>{{this.hotelname}}</strong></h3>
+        <p class="type"><strong>Type:</strong> Delivery</p>
+        </div>
+        <p class="payment-method mt-1"><strong>Payment :</strong> {{this.paymentmethod}}</p>
+
+        {{#each this.product}}
+        <ul style="font-family: 'Times New Roman', Times, serif;" class="d-flex items">
+          <div class="col-1"><p><strong>{{this.product.quantity}}×{{this.product.prize}}</strong></p></div>
+          <div class="col-2"><strong><span style="margin-left: 10px;">{{this.product.productname}}</strong></span></div>
+          <div class="col-5"><strong><li style="margin-left: 20px;">{{this.product.totalprize}}</strong></li></div>
+        </ul>
+        {{/each}}
+        
+      </div>
+    </div>
+    <div class="order-footer">
+      <div class="price-breakdown">
+        <p>Item Total: ₹{{this.totalamount}}</p>
+        <p>Delivery Charge: ₹24</p>
+        <hr>
+        <div class="d-flex justify-content-between">
+        <p class="total-price"><strong>Total: ₹{{this.grandttoal}}</strong></p>
+        <a href="/trackpage" class="text-muted" style="font-family: 'Times New Roman', Times, serif;">Track order</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  </body>
+  {{/if}}
+  {{/each}}
+  {{else}}
+  <body class="secondbody">
+  <div class="container" style="text-align: center;">
+    <div class="cart-container">
+        <img src="/images/emptycart.avif" alt="Empty Cart" class="cart-image">
+        <p class="cart-text">Your History book is <span class="highlight">Empty</span></p>
+        <p class="subtext">Add items to get History.</p>
+        <a href="/homepage" class="menu-button btn">Add Products</a>
+    </div>
+  </div>
+
+  </body>
+  {{/if}}
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Shalu Store</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+    
+    </head>
+  <body>
+    <!-- Bootstrap JS (for Navbar toggle) -->
+   
+    {{#if navbar}}
+    {{>nav}}
+    {{/if}}
+    {{#if adminnav}}
+    {{>adminnav}}
+    {{/if}}
+     {{{body}}}
+
+      
+  </body>
+</html>
