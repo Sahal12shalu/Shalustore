@@ -161,10 +161,9 @@ router.get('/carddetail/:id',async function(req,res){
     var totalamount =await userhelper.gettotalamount(req.session.user._id).then()
     var grandtotal =await userhelper.grandtotal(totalamount).then()
     
-    userhelper.addconfirmproducts(req.session.user._id,product,grandtotal,method,totalamount).then(async()=>{
+    userhelper.addconfirmproducts(req.session.user._id,product,grandtotal,method,totalamount).then(async(orderId)=>{
       var alldetails =await userhelper.getconfirmproducts(req.session.user._id).then()
       var totalamount = alldetails[0].totalamount
-      var orderId = alldetails[0]._id
       userhelper.razorpaygenerate(orderId,totalamount).then((response)=>{
        res.json(response)
       })
