@@ -1,12 +1,18 @@
 const db=require('../config/connection')
 const Collection=require('../config/collections')
+require('dotenv').config();
+console.log(process.env.RAZORPAY_KEY_ID)
+console.log(process.env.RAZORPAY_KEY_SECRET)
 var bcrypt=require('bcrypt')
 const { ObjectId } = require('mongodb')
 const Razorpay = require('razorpay');
 var instance = new Razorpay({
-    key_id: 'rzp_test_FTIGD8QXlnnZPE',
-    key_secret: 'QVkNW3R3rDSG4QCbM82VP5p9',
+    key_id: process.env.RAZORPAY_KEY_ID,
+    key_secret: process.env.RAZORPAY_KEY_SECRET,
   });
+
+  
+  
 
 module.exports={
     additems:(function(details){
