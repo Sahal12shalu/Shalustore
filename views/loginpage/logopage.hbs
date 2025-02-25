@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Food Delivery Animation</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: url('') no-repeat center center/cover;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+        h1 {
+            font-size: clamp(1.5rem, 5vw, 3rem);
+        }
+        .scooter {
+            position: absolute;
+            bottom: 50px;
+            left: -200px; /* Start off-screen */
+            width: 160px;
+            animation: rideScooter 4s linear forwards;
+        }
+
+        @keyframes rideScooter {
+            0% {
+                left: -200px;
+            }
+            100% {
+                left: 100vw;
+            }
+        }
+        .logo {
+            opacity: 0;
+            animation: fadeLogo 4s ease-in-out 0.7s forwards;
+        }
+        @keyframes fadeLogo {
+            0% {
+                opacity:0;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+        #name {
+            align-items: center;
+        }
+        
+    </style>
+</head>
+<body style="background: linear-gradient(135deg, rgba(221, 216, 216, 0.685) 0%, rgba(84, 119, 119, 0.6) 100%);">
+    <div style="align-content: center;">
+    <img style="width: 350px; height: 350px;" alt="logo" class="logo" src="/images/download11.png">
+    </div>
+    <div style="align-items: flex-end;">
+        <img src="/images/bgbike.png" alt="Scooter" class="scooter">
+    </div>
+
+</body>
+</html>
+
+    <script>
+        setTimeout(() => {
+            window.location.href = "/login"; 
+        }, 4000);
+    </script>

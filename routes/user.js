@@ -5,6 +5,9 @@ const userhelper=require('../helpers/userhelper')
 const adminhelper=require('../helpers/adminhelper');
 /* GET home page. */
 router.get('/', function (req, res) {
+  res.render('loginpage/logopage')
+});
+router.get('/login', function (req, res) {
     res.render('loginpage/login')
 });
 router.post('/signup',function(req,res){
@@ -12,7 +15,7 @@ router.post('/signup',function(req,res){
     if(rest.response){
       res.render('loginpage/login',{hello:true})
     }else{
-    res.redirect('/')
+    res.redirect('/login')
     }
   })
 }),

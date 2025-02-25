@@ -231,7 +231,7 @@
                 <div class="card-body">
                     <div class="divofnameandicon">
                     <div>
-                <h5 id="hotelname" class="card-title " style="color: rgb(18, 17, 17);"><strong>{{this.productname}}</strong></h5></div>
+                <h5 id="hotelname" class="card-title " style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; color: rgb(18, 17, 17);"><strong>{{this.productname}}</strong></h5></div>
                 {{#if (eq this.vegornon "veg")}}
                 <div class="seconddivofnameandicon"><img class="img-fluid" src="/images/veg-nonveg/veg.png" style="height: 30px; width: 30px;">
                 </div>
@@ -241,7 +241,7 @@
                 {{/if}}
                 </div>
                 <div style="justify-items: start;">
-                    <p class="card-text" style="font-family: 'Times New Roman', Times, serif;">$ {{this.prize}}</p>
+                    <p class="card-text" style="font-family: Arial, Helvetica, sans-serif">$ {{this.prize}}</p>
                     </div>
                     <button class="btn btn-secondary w-100 mt-2" onclick="openPopup('{{this.hotelname}}','{{this.prize}}','{{this._id}}','{{this.hotid}}')">Add</button>
                 </div>
@@ -269,8 +269,8 @@
                 {{/if}}
         </div>
         <div class="card-content11" style="padding-left: 20px;">
-            <h2 class="title pt-2">{{this.productname}}</h2>
-            <p class="price" style="font-family: 'Times New Roman', Times, serif;">$ {{this.prize}}</p>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;" class="title pt-2">{{this.productname}}</h2>
+            <p class="price" style="font-family: Arial, Helvetica, sans-serif">$ {{this.prize}}</p>
         </div>
         <div class="card-right">
             <button class="add-button" onclick="openPopup('{{this.hotelname}}',{{this.prize}},'{{this._id}}','{{this.hotid}}')">Add</button>       
