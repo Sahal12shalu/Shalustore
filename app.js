@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+const session = require('express-session')
+const MemoryStore = require('memorystore')(session)
 
 var handlebars = require('handlebars');
 var expressHandlebars = require('express-handlebars');
@@ -14,7 +16,6 @@ var usersRouter = require('./routes/admin');
 var fileUpload = require('express-fileupload');
 var db = require('./config/connection');
 const { stringify } = require('querystring');
-var session = require('express-session')
 
 var app = express();
 
@@ -45,7 +46,14 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
-app.use(session({secret:"key"}))
+app.use(session({
+    cookie: { maxAge: 86400000 },
+    store: new MemoryStore({
+      checkPeriod: 86400000 // prune expired entries every 24h
+    }),
+    resave: false,
+    secret: 'key'
+}))
 
 db.connect();
 
