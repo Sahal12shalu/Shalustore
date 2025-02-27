@@ -1,4 +1,4 @@
-var mongoClient=require('mongodb').MongoClient
+var mongoclient =require('mongodb').MongoClient
 var state={
     db:null
 }
@@ -7,9 +7,9 @@ module.exports.connect=function(done){
     var url='mongodb://localhost:27017'
     var dbname='deliverApp'
 
-    mongoClient.connect(url,function(err,data){
-        
-            state.db=data.db(dbname)
+    mongoclient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err,data){
+        if(err) return done(err);
+            state.db=data.db(dbname);
        
     })
 }
