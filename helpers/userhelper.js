@@ -1,4 +1,4 @@
-const db=require('../config/connection')
+const db = require('../config/connection')
 const Collection=require('../config/collections')
 var bcrypt=require('bcryptjs')
 const { ObjectId } = require('mongodb')
@@ -48,7 +48,7 @@ module.exports={
     }),
     getsignupdeails:((userId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Logindetails).find({_id:ObjectId(userId)}).toArray().then((res)=>{
+            db.get().collection(Collection.Logindetails).find({_id:new ObjectId(userId)}).toArray().then((res)=>{
                 resolve(res)
             })
         })
@@ -110,12 +110,12 @@ module.exports={
             totalprize:Number(totalprize),
         }
         return new Promise(async(resolve,reject)=>{
-            var userExist = await db.get().collection(Collection.Cartproduct).findOne({user:ObjectId(userId)})
+            var userExist = await db.get().collection(Collection.Cartproduct).findOne({user:new ObjectId(userId)})
             if(userExist){
                 let existinghotId = userExist.product.length > 0 ? userExist.product[0].hotelId : null;
                 
                 if(existinghotId && existinghotId !== hotId){
-                    db.get().collection(Collection.Cartproduct).updateOne({user:ObjectId(userId)},
+                    db.get().collection(Collection.Cartproduct).updateOne({user:new ObjectId(userId)},
                 {$set: {product:[Proobj]}}).then(()=>{
                     resolve()
                 })
@@ -125,14 +125,14 @@ module.exports={
                 if(proExist !== -1)
                     {
                        db.get().collection(Collection.Cartproduct)
-                    .updateOne({user:ObjectId(userId),'product.item':ObjectId(proId)},{$inc:{'product.$.quantity':1,'product.$.totalprize':totalprize}}
+                    .updateOne({user:new ObjectId(userId),'product.item':new ObjectId(proId)},{$inc:{'product.$.quantity':1,'product.$.totalprize':totalprize}}
                     
                 ).then(()=>{
                     resolve()
                 })
                     
                 }else{
-                    db.get().collection(Collection.Cartproduct).updateOne({user:ObjectId(userId)},{
+                    db.get().collection(Collection.Cartproduct).updateOne({user:new ObjectId(userId)},{
                         $push:{product:Proobj}
                 })
             .then(()=>{
@@ -142,7 +142,7 @@ module.exports={
         }
             }else{
                 var cartObj={
-                    user:ObjectId(userId),
+                    user:new ObjectId(userId),
                     productId:proId,
                     product:[Proobj]
                 }
@@ -156,7 +156,7 @@ module.exports={
         return new Promise(async function(resolve,reject){
             var cartItems=await db.get().collection(Collection.Cartproduct).aggregate([
                 {
-                    $match:{user:ObjectId(userId)}
+                    $match:{user:new ObjectId(userId)}
                 },
                 {
                     $unwind:'$product'
@@ -195,14 +195,14 @@ module.exports={
     }),
     carthoteldetail:((hotId)=>{
          return new Promise(async(resolve,reject)=>{
-            var carthotelId =await db.get().collection(Collection.Hoteldetails).find({_id:ObjectId(hotId)}).toArray().then()
+            var carthotelId =await db.get().collection(Collection.Hoteldetails).find({_id:new ObjectId(hotId)}).toArray().then()
             resolve(carthotelId)
             
         })
     }),
     gettotalcartlength:((userId)=>{
         return new Promise(async(resolve,reject)=>{
-           var cart =await db.get().collection(Collection.Cartproduct).findOne({user:ObjectId(userId)})
+           var cart =await db.get().collection(Collection.Cartproduct).findOne({user:new ObjectId(userId)})
            if(cart){
             const productCount =await cart.product.length;
             resolve(productCount)
@@ -218,16 +218,16 @@ module.exports={
         return new Promise(async(resolve,reject)=>{
             if(items.count==-1 && items.quantity==1){
                 db.get().collection(Collection.Cartproduct)
-                .updateOne({_id:ObjectId(items.cart)},
+                .updateOne({_id:new ObjectId(items.cart)},
                 {
-                    $pull:{product:{item:ObjectId(items.product)}}
+                    $pull:{product:{item:new ObjectId(items.product)}}
                 }
             ).then(()=>{
                 resolve({heyy:true})
             })
             }else{
            db.get().collection(Collection.Cartproduct)
-                    .updateOne({_id:ObjectId(items.cart),'product.item':ObjectId(items.product)},
+                    .updateOne({_id:new ObjectId(items.cart),'product.item':new ObjectId(items.product)},
                     {$inc:{'product.$.quantity':items.count,'product.$.totalprize':items.prize}}
                 ).then()
                     resolve({status:true})
@@ -236,9 +236,9 @@ module.exports={
     }),
     deletecartproduct:((items)=>{
         return new Promise(async(resolve,reject)=>{
-            var check =await db.get().collection(Collection.Cartproduct).updateOne({_id:ObjectId(items.cartId)},
+            var check =await db.get().collection(Collection.Cartproduct).updateOne({_id:new ObjectId(items.cartId)},
             {
-                $pull:{product:{item:ObjectId(items.proId)}}
+                $pull:{product:{item:new ObjectId(items.proId)}}
             }
         )
             resolve(check)
@@ -248,7 +248,7 @@ module.exports={
         return new Promise(async function(resolve,reject){
             var total=await db.get().collection(Collection.Cartproduct).aggregate([
                 {
-                    $match:{user:ObjectId(userId)}
+                    $match:{user:new ObjectId(userId)}
                 },
                 {
                     $unwind:'$product'
@@ -289,13 +289,13 @@ module.exports={
             var total=await db.get().collection(Collection.Cartproduct).aggregate([
                 {
                     $match: {
-                        user: ObjectId(userId),
-                        "product.item": ObjectId(proId) // Ensure matching with ObjectId
+                        user:new ObjectId(userId),
+                        "product.item":new ObjectId(proId) // Ensure matching with ObjectId
                     }
                 },
                 { $unwind: "$product" }, // Flatten the product array
                 {
-                    $match: { "product.item": ObjectId(proId) } // Ensure correct match
+                    $match: { "product.item":new ObjectId(proId) } // Ensure correct match
                 },
                 {
                     $project: {
@@ -340,8 +340,8 @@ module.exports={
     }),
     deleteaddress:((proId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Addressdetails).deleteOne({_id:ObjectId(proId)}).then(async(res)=>{
-                var address = await db.get().collection(Collection.Addressdetails).find({_id:ObjectId(proId)}).toArray().then()
+            db.get().collection(Collection.Addressdetails).deleteOne({_id:new ObjectId(proId)}).then(async(res)=>{
+                var address = await db.get().collection(Collection.Addressdetails).find({_id:new ObjectId(proId)}).toArray().then()
                 if(address.length>1){
                 resolve({status:true})
                 }else{
@@ -362,7 +362,7 @@ module.exports={
         var status = method === 'cod'?'placed':'pending'
         return new Promise(async(resolve,reject)=>{
                 var Newuser ={
-                    user:ObjectId(userId),
+                    user:new ObjectId(userId),
                     paymentmethod : method === 'cod'?'Cash On Delivery':'Online-Payment',
                     product,
                     grandttoal:grandttoal,
@@ -373,27 +373,27 @@ module.exports={
                     date:new Date()
                 }
             db.get().collection(Collection.Confirmproducts).insertOne(Newuser).then((data)=>{
-                db.get().collection(Collection.Cartproduct).deleteOne({user:ObjectId(userId)})
+                db.get().collection(Collection.Cartproduct).deleteOne({user:new ObjectId(userId)})
                 resolve(data.insertedId.toString())
             })
         })
     }),
     getaddressdetail:((addressId)=>{
         return new Promise(async(resolve,reject)=>{
-            db.get().collection(Collection.Addressdetails).find({_id:ObjectId(addressId)}).toArray().then((products)=>{
+            db.get().collection(Collection.Addressdetails).find({_id:new ObjectId(addressId)}).toArray().then((products)=>{
                 resolve(products)
             })
         })
     }),
     getcartproductlist:((userId)=>{
         return new Promise(async(resolve,reject)=>{
-            var user=await db.get().collection(Collection.Cartproduct).findOne({user:ObjectId(userId)})
+            var user=await db.get().collection(Collection.Cartproduct).findOne({user:new ObjectId(userId)})
             resolve(user.product)
         })
     }),
     getconfirmproducts:((userId)=>{
         return new Promise(async(resolve,reject)=>{
-            var cartItems=await db.get().collection(Collection.Confirmproducts).find({user:ObjectId(userId)}).toArray()
+            var cartItems=await db.get().collection(Collection.Confirmproducts).find({user:new ObjectId(userId)}).toArray()
             resolve(cartItems)
         })
     }),
@@ -427,7 +427,7 @@ module.exports={
         console.log(orderId);
         return new Promise((resolve,reject)=>{
             db.get().collection(Collection.Confirmproducts)
-            .updateOne({_id:ObjectId(orderId)},
+            .updateOne({_id:new ObjectId(orderId)},
             {
                 $set:{
                     status:'placed'
@@ -440,7 +440,7 @@ module.exports={
     },
     addprofileimageplaced:((userId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Logindetails).updateOne({_id:ObjectId(userId)},{
+            db.get().collection(Collection.Logindetails).updateOne({_id:new ObjectId(userId)},{
                 $set:{status:'placed'},
             },
             {upsert:true}

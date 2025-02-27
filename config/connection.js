@@ -1,18 +1,17 @@
-var mongoclient =require('mongodb').MongoClient
-var state={
+var {MongoClient} = require('mongodb')
+var state = {
     db:null
 }
-
 module.exports.connect=function(done){
-    var url='mongodb://localhost:27017'
-    var dbname='deliverApp'
+    const url='mongodb://localhost:27017'
+    const dbname='deliverApp'
 
-    mongoclient.connect(url,{ useNewUrlParser: true, useUnifiedTopology: true }, function(err,data){
-        if(err) return done(err);
-            state.db=data.db(dbname);
-       
+    MongoClient.connect(url).then(client => {
+        state.db = client.db(dbname)
+        done()
     })
 }
+
 module.exports.get=function(){
     return state.db
 }

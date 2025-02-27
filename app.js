@@ -13,11 +13,9 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 var indexRouter = require('./routes/user');
 var usersRouter = require('./routes/admin');
 
-var fileUpload = require('express-fileupload');
-var db = require('./config/connection');
-const { stringify } = require('querystring');
-
 var app = express();
+var fileUpload = require('express-fileupload');
+var db = require('./config/connection')
 
 // Set up Handlebars
 const hbs = expressHandlebars.create({
@@ -56,8 +54,10 @@ app.use(session({
     resave:false,
     saveUninitialized:false
 }));
-
-db.connect();
+db.connect((err)=>{
+    if(err) console.log("database error")
+        else console.log('connected')
+})
 
 app.use('/', indexRouter);
 app.use('/admin', usersRouter);

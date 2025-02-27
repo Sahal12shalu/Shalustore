@@ -80,7 +80,7 @@ module.exports={
     }),
     deletehoteldetail:((proId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Hoteldetails).deleteOne({_id:ObjectId(proId)}).then(()=>{
+            db.get().collection(Collection.Hoteldetails).deleteOne({_id:new ObjectId(proId)}).then(()=>{
                 db.get().collection(Collection.Productdetail).deleteMany({hotid:proId}).then()
                 resolve()
             })
@@ -88,7 +88,7 @@ module.exports={
     }),
     editedhotelproduct:((proId,product)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Hoteldetails).updateOne({_id:ObjectId(proId)},{
+            db.get().collection(Collection.Hoteldetails).updateOne({_id:new ObjectId(proId)},{
                 $set:{
                     hotelname:product.hotelname,
                     description:product.description,
@@ -112,7 +112,7 @@ module.exports={
     }),
     deleteproductdetail:((proId)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Productdetail).deleteOne({_id:ObjectId(proId)}).then(()=>{
+            db.get().collection(Collection.Productdetail).deleteOne({_id:new ObjectId(proId)}).then(()=>{
                 resolve()
             })
         })
@@ -122,14 +122,14 @@ module.exports={
             return reject(new Error("invalid Objectid format"))
         }
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Productdetail).find({_id:ObjectId(proId)}).toArray().then((response)=>{
+            db.get().collection(Collection.Productdetail).find({_id:new ObjectId(proId)}).toArray().then((response)=>{
                 resolve(response)
             })
         })
     }),
     editedproduct:((proId,items)=>{
         return new Promise((resolve,reject)=>{
-            db.get().collection(Collection.Productdetail).updateOne({_id:ObjectId(proId)},{
+            db.get().collection(Collection.Productdetail).updateOne({_id:new ObjectId(proId)},{
                 $set:{
                     productname:items.productname,
                     description:items.description,

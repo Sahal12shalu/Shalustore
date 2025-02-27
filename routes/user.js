@@ -92,7 +92,7 @@ router.get('/carddetail/:id',async function(req,res){
   }),
   router.get('/logout',function(req,res){
     req.session.destroy()
-    res.redirect('/carddetail')
+    res.redirect('/')
   }),
   router.post('/change-product-quantity',async function(req,res){
      userhelper.changeproductquantity(req.body).then(async(response)=>{
