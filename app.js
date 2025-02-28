@@ -54,10 +54,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false
 }));
-db.connect((err)=>{
-    if(err) console.log("database error")
-        else console.log('connected')
-})
+db.connect()
 
 app.use('/', indexRouter);
 app.use('/admin', usersRouter);
