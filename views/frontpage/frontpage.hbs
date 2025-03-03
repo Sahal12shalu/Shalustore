@@ -36,12 +36,10 @@
     </div>
   </div>
 </div>
-
-    <!-- Banner -->
     <div class="container mt-3">
         <div class="banner">
-            <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;"><strong>Welcome to Sahal Store</strong></h2>
-            <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Your favorite dishes at your fingertips</p>
+          <h2 style="font-family: Georgia, 'Times New Roman', Times, serif;"><strong>Welcome to Sahal Store</strong></h2>
+          <p style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Your favorite dishes at your fingertips</p>
         </div>
     </div>
 
@@ -90,16 +88,14 @@
                     <img class="icon-image-pizza">
                 </a>
             </div>
-
         </div>
     </div>
 
-    <!-- Near You Section -->
     <div id="resturant" class="container mt-4">
         <h5><strong>Resturants to explore</strong></h5>
         <div class="row">
           {{#each products}}
-            <div data-category="{{this.category}}" data-12="all" class="explore-card col-md-6">
+            <div data-category="{{this.category}}" data-12="all" class="explore-card col-12 col-lg-12 col-xl-6">
                 <a href="/carddetail/{{this._id}}" class="card mb-3"> 
                 <div class="row g-0">
                 <div class="col-5 carddiv">
@@ -162,7 +158,6 @@
               </div>
             </div>
           </div>
-          
           <!-- Single Widget-->
           <div id="hahaha" class="col-6 col-lg-4">
             <div class="single-footer-widget section_padding_0_130">
