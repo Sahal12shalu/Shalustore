@@ -18,7 +18,6 @@
     "express-fileupload": "^1.5.1",
     "express-handlebars": "^8.0.1",
     "express-session": "^1.18.1",
-    "fileupload": "^0.2.2",
     "fs": "^0.0.1-security",
     "handlebars": "^4.5.3",
     "hbs": "^4.2.0",

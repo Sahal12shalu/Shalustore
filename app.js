@@ -45,9 +45,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(fileUpload());
 app.use(session({
-    cookie: { maxAge: 86400000 },
+    cookie: { maxAge: 6000000 },
     store: new MemoryStore({
-      checkPeriod: 86400000 // prune expired entries every 24h
+      checkPeriod: 6000000 // prune expired entries every 24h
     }),
     resave: false,
     secret: 'secret-key',
