@@ -168,17 +168,17 @@ body {
         <p class="type"><strong>Type:</strong> Delivery</p>
         </div>
         <p class="payment-method mt-1"><strong>Payment Method:</strong> {{this.paymentmethod}}</p>
-
-        {{#each this.product}}
+      </div>
+    </div>
+    <div style="padding-left: 30px;">
+    {{#each this.product}}
         <ul class="pt-2 d-flex items">
           <div class="col-2"><p><strong>{{this.product.quantity}}×{{this.product.totalprize}}</strong></p></div>
           <div class="col-5"><strong><span style="margin-left: 10px;">{{this.product.productname}}</strong></span></div>
           <div class="col-3"><strong><li style="margin-left: 20px;">{{this.product.grandtotal}}</strong></li></div>
         </ul>
         {{/each}}
-        
-      </div>
-    </div>
+        </div>
     <div class="order-footer" style="background-color: #c3c3c31f;">
       <div class="price-breakdown">
         <p>Item Total: ₹{{this.totalamount}}</p>
@@ -210,17 +210,16 @@ body {
         <p class="type"><strong>Type:</strong> Delivery</p>
         </div>
         <p class="payment-method mt-1"><strong>Payment :</strong> {{this.paymentmethod}}</p>
-
-        {{#each this.product}}
-        <ul style="font-family: 'Times New Roman', Times, serif;" class="d-flex items">
-          <div class="col-1"><p><strong>{{this.product.quantity}}×{{this.product.prize}}</strong></p></div>
-          <div class="col-2"><strong><span style="margin-left: 10px;">{{this.product.productname}}</strong></span></div>
-          <div class="col-5"><strong><li style="margin-left: 20px;">{{this.product.totalprize}}</strong></li></div>
-        </ul>
-        {{/each}}
         
       </div>
     </div>
+    {{#each this.product}}
+        <ul style="font-family: 'Times New Roman', Times, serif;" class="d-flex items">
+          <div class="col-3"><p><strong>{{this.product.quantity}}×{{this.product.prize}}</strong></p></div>
+          <div class="col-5"><strong><span style="margin-left: 10px;">{{this.product.productname}}</strong></span></div>
+          <div class="col-4"><strong><li style="margin-left: 20px;">{{this.product.totalprize}}</strong></li></div>
+        </ul>
+        {{/each}}
     <div class="order-footer">
       <div class="price-breakdown">
         <p>Item Total: ₹{{this.totalamount}}</p>
@@ -248,7 +247,6 @@ body {
         <a href="/homepage" class="menu-button btn">Add Products</a>
     </div>
   </div>
-
   </body>
   {{/if}}
 </html>
